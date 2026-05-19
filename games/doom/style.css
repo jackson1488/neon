@@ -1,0 +1,231 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: #02040a;
+  color: #f4f7ff;
+  font-family: "Segoe UI", Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+  background:
+    radial-gradient(circle at top, rgba(87, 222, 255, 0.14), transparent 34%),
+    radial-gradient(circle at bottom, rgba(255, 120, 72, 0.12), transparent 26%),
+    linear-gradient(180deg, #070a11 0%, #02040a 100%);
+}
+
+.doom-shell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.doom-canvas {
+  width: calc(min(100vw, 100vh * 4 / 3));
+  height: calc(min(100vh, 100vw * 3 / 4));
+  margin-top: calc(0.5 * (100vh - min(100vh, 100vw * 3 / 4)));
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  border: 0;
+  outline: none;
+  background: #000;
+  visibility: hidden;
+  touch-action: none;
+  image-rendering: pixelated;
+}
+
+@supports (height: 1dvh) {
+  .doom-canvas {
+    width: calc(min(100dvw, 100dvh * 4 / 3));
+    height: calc(min(100dvh, 100dvw * 3 / 4));
+    margin-top: calc(0.5 * (100dvh - min(100dvh, 100dvw * 3 / 4)));
+  }
+}
+
+.doom-canvas.visible {
+  visibility: visible;
+}
+
+.doom-touch-ui {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.doom-touch-left,
+.doom-touch-right {
+  position: absolute;
+  bottom: max(18px, env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  pointer-events: none;
+}
+
+.doom-touch-left {
+  left: max(18px, env(safe-area-inset-left));
+}
+
+.doom-touch-right {
+  right: max(18px, env(safe-area-inset-right));
+  align-items: flex-end;
+}
+
+.doom-look-pad {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 58%;
+  height: 100%;
+  pointer-events: auto;
+  background: transparent;
+}
+
+.doom-joystick-base {
+  position: relative;
+  width: 136px;
+  height: 136px;
+  border-radius: 68px;
+  pointer-events: auto;
+  background: radial-gradient(circle, rgba(87, 222, 255, 0.18), rgba(87, 222, 255, 0.05));
+  border: 1px solid rgba(87, 222, 255, 0.2);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
+}
+
+.doom-joystick-thumb {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 54px;
+  height: 54px;
+  border-radius: 27px;
+  background: linear-gradient(180deg, rgba(127, 242, 255, 0.9), rgba(50, 183, 255, 0.82));
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  transform: translate(-50%, -50%);
+  transition: transform 0.05s linear;
+  will-change: transform;
+}
+
+.doom-touch-actions,
+.doom-touch-utility,
+.doom-touch-prompts {
+  display: flex;
+  gap: 10px;
+  pointer-events: none;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: min(52vw, 280px);
+}
+
+.doom-touch-btn {
+  min-width: 62px;
+  min-height: 62px;
+  border: 0;
+  border-radius: 18px;
+  pointer-events: auto;
+  color: #f4f7ff;
+  background: linear-gradient(180deg, rgba(12, 17, 27, 0.92), rgba(8, 11, 18, 0.92));
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.32);
+  border: 1px solid rgba(87, 222, 255, 0.16);
+  font: 800 21px/1 "Segoe UI", Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.doom-touch-btn--small {
+  min-width: 48px;
+  min-height: 48px;
+  font-size: 18px;
+}
+
+.doom-touch-btn--fire,
+.doom-touch-btn--use {
+  min-width: 86px;
+  min-height: 86px;
+  border-radius: 24px;
+  font-size: 28px;
+}
+
+@media (pointer: coarse) and (orientation: portrait) {
+  .doom-touch-ui {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+@media (pointer: coarse) {
+  .doom-canvas {
+    width: 100vw;
+    height: 100vh;
+    margin-top: 0;
+  }
+
+  @supports (height: 1dvh) {
+    .doom-canvas {
+      width: 100dvw;
+      height: 100dvh;
+    }
+  }
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: linear-gradient(180deg, rgba(5, 7, 13, 0.96), rgba(2, 4, 10, 0.98));
+}
+
+.hidden {
+  display: none;
+}
+
+.card {
+  width: min(540px, 100%);
+  border-radius: 26px;
+  padding: 24px;
+  border: 1px solid rgba(87, 222, 255, 0.24);
+  background: rgba(12, 17, 27, 0.92);
+  box-shadow: 0 24px 84px rgba(0, 0, 0, 0.44);
+}
+
+.eyebrow {
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #58dfff;
+}
+
+h1,
+h2 {
+  margin: 0 0 12px;
+  font-size: 34px;
+  line-height: 1.05;
+}
+
+p {
+  margin: 0;
+  color: rgba(244, 247, 255, 0.76);
+  font-size: 15px;
+  line-height: 1.58;
+}
+
+.subnote {
+  margin-top: 12px;
+  font-size: 13px;
+  color: rgba(244, 247, 255, 0.6);
+}
+
+code {
+  color: #9feaff;
+}

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Neon Doom</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="doom-shell">
+      <div id="loading" class="overlay loading-overlay">
+        <div class="card">
+          <div class="eyebrow">NEON GAMES</div>
+          <h1>Doom</h1>
+          <p id="loading-text">Готовим IWAD и поднимаем Doom-движок…</p>
+        </div>
+      </div>
+
+      <div id="error" class="overlay error-overlay hidden">
+        <div class="card">
+          <div class="eyebrow">NEON GAMES</div>
+          <h2>Нужен оригинальный IWAD</h2>
+          <p id="error-text">
+            Положи оригинальный <code>DOOM.WAD</code> или <code>DOOM2.WAD</code> в папку
+            <code>frontend/public/games/doom/iwads/</code> и проверь <code>manifest.json</code>.
+          </p>
+          <p class="subnote">
+            Движок основан на Dwasm и ожидает только IWAD. Никакой <code>DOOM.EXE</code> больше не нужен.
+          </p>
+        </div>
+      </div>
+
+      <canvas id="canvas" class="doom-canvas" tabindex="-1"></canvas>
+    </div>
+
+    <script src="./boot.js"></script>
+  </body>
+</html>
